@@ -1,0 +1,548 @@
+{
+  "3": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter-plus_sd15.bin"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "Load IPAdapter Model"
+    }
+  },
+  "4": {
+    "inputs": {
+      "clip_name": "sd15_clipVision.safetensors"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "5": {
+    "inputs": {
+      "ckpt_name": "photon_v1.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "blurry, dark, low quality, messy, ugly, ((NSFW))",
+      "clip": [
+        "5",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "12": {
+    "inputs": {
+      "samples": [
+        "179",
+        0
+      ],
+      "vae": [
+        "267",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "72": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "12",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "88": {
+    "inputs": {
+      "text": "A high quality photo of a kitchen, great lighting, crisp,",
+      "clip": [
+        "153",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Text prompt"
+    }
+  },
+  "153": {
+    "inputs": {
+      "lora_name": "add_detail.safetensors",
+      "strength_model": 1,
+      "strength_clip": 1,
+      "model": [
+        "5",
+        0
+      ],
+      "clip": [
+        "5",
+        1
+      ]
+    },
+    "class_type": "Load Lora",
+    "_meta": {
+      "title": "Load Lora"
+    }
+  },
+  "166": {
+    "inputs": {
+      "b1": 1.3,
+      "b2": 1.4,
+      "s1": 0.9,
+      "s2": 0.2,
+      "model": [
+        "370",
+        0
+      ]
+    },
+    "class_type": "FreeU_V2",
+    "_meta": {
+      "title": "FreeU_V2"
+    }
+  },
+  "179": {
+    "inputs": {
+      "add_noise": "enable",
+      "noise_seed": 839102564076616,
+      "steps": 50,
+      "cfg": 5,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "start_at_step": 0,
+      "end_at_step": 10000,
+      "return_with_leftover_noise": "disable",
+      "model": [
+        "166",
+        0
+      ],
+      "positive": [
+        "407",
+        0
+      ],
+      "negative": [
+        "407",
+        1
+      ],
+      "latent_image": [
+        "367",
+        0
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "KSampler (Advanced)"
+    }
+  },
+  "267": {
+    "inputs": {
+      "vae_name": "vae-ft-mse-840000-ema-pruned.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "270": {
+    "inputs": {
+      "strength": 1,
+      "start_percent": 0,
+      "end_percent": 0.553,
+      "positive": [
+        "405",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "control_net": [
+        "271",
+        0
+      ],
+      "image": [
+        "372",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "Apply ControlNet (Advanced)"
+    }
+  },
+  "271": {
+    "inputs": {
+      "control_net_name": "control_v11p_sd15_seg.pth"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "367": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "batch_size": 2
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "369": {
+    "inputs": {
+      "ipadapter_plus": true,
+      "noise": 0.5,
+      "weight_1": 1,
+      "weight_2": 1,
+      "weight_3": 1,
+      "weight_4": 1,
+      "clip_vision": [
+        "4",
+        0
+      ],
+      "image_1": [
+        "386",
+        0
+      ],
+      "image_2": [
+        "384",
+        0
+      ],
+      "image_3": [
+        "388",
+        0
+      ],
+      "image_4": [
+        "387",
+        0
+      ]
+    },
+    "class_type": "IPAdapterEncoder",
+    "_meta": {
+      "title": "Encode IPAdapter Image"
+    }
+  },
+  "370": {
+    "inputs": {
+      "weight": 0.65,
+      "weight_type": "original",
+      "start_at": 0,
+      "end_at": 0.9,
+      "unfold_batch": false,
+      "ipadapter": [
+        "3",
+        0
+      ],
+      "embeds": [
+        "369",
+        0
+      ],
+      "model": [
+        "153",
+        0
+      ]
+    },
+    "class_type": "IPAdapterApplyEncoded",
+    "_meta": {
+      "title": "Apply IPAdapter from Encoded"
+    }
+  },
+  "372": {
+    "inputs": {
+      "high_quality": 1,
+      "image": [
+        "375",
+        0
+      ]
+    },
+    "class_type": "eliTestSeg",
+    "_meta": {
+      "title": "OneFormer Node"
+    }
+  },
+  "373": {
+    "inputs": {
+      "image": "kitchen_demo.jpg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "374": {
+    "inputs": {
+      "images": [
+        "372",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "375": {
+    "inputs": {
+      "max_res": "768",
+      "image": [
+        "373",
+        0
+      ]
+    },
+    "class_type": "EliResizeImage",
+    "_meta": {
+      "title": "ResizeImage Node"
+    }
+  },
+  "384": {
+    "inputs": {
+      "image": "bird-1.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "386": {
+    "inputs": {
+      "image": "bird-2.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "387": {
+    "inputs": {
+      "image": "bird-3.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "388": {
+    "inputs": {
+      "image": "bird-4.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "393": {
+    "inputs": {
+      "images": [
+        "388",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "394": {
+    "inputs": {
+      "images": [
+        "387",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "395": {
+    "inputs": {
+      "images": [
+        "386",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "396": {
+    "inputs": {
+      "images": [
+        "384",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "397": {
+    "inputs": {
+      "conditioning_to": [
+        "88",
+        0
+      ],
+      "conditioning_from": [
+        "398",
+        0
+      ]
+    },
+    "class_type": "ConditioningConcat",
+    "_meta": {
+      "title": "Conditioning (Concat)"
+    }
+  },
+  "398": {
+    "inputs": {
+      "text": "stainless steel appliances",
+      "clip": [
+        "153",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Text prompt"
+    }
+  },
+  "402": {
+    "inputs": {
+      "upscale_model": [
+        "403",
+        0
+      ],
+      "image": [
+        "12",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "403": {
+    "inputs": {
+      "model_name": "4x-UltraSharp.pth"
+    },
+    "class_type": "Upscale Model Loader",
+    "_meta": {
+      "title": "Upscale Model Loader"
+    }
+  },
+  "405": {
+    "inputs": {
+      "conditioning_to": [
+        "397",
+        0
+      ],
+      "conditioning_from": [
+        "406",
+        0
+      ]
+    },
+    "class_type": "ConditioningConcat",
+    "_meta": {
+      "title": "Conditioning (Concat)"
+    }
+  },
+  "406": {
+    "inputs": {
+      "text": "navy blue cabinets",
+      "clip": [
+        "153",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Text prompt"
+    }
+  },
+  "407": {
+    "inputs": {
+      "strength": 0.25,
+      "start_percent": 0,
+      "end_percent": 0.372,
+      "positive": [
+        "270",
+        0
+      ],
+      "negative": [
+        "270",
+        1
+      ],
+      "control_net": [
+        "408",
+        0
+      ],
+      "image": [
+        "413",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "Apply ControlNet (Advanced)"
+    }
+  },
+  "408": {
+    "inputs": {
+      "control_net_name": "control_v11f1p_sd15_depth.pth"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "410": {
+    "inputs": {
+      "images": [
+        "413",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "413": {
+    "inputs": {
+      "ckpt_name": "depth_anything_vitb14.pth",
+      "resolution": 768,
+      "image": [
+        "375",
+        0
+      ]
+    },
+    "class_type": "DepthAnythingPreprocessor",
+    "_meta": {
+      "title": "Depth Anything"
+    }
+  }
+}
